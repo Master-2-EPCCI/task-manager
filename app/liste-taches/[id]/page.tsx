@@ -2,7 +2,10 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 import { prisma } from "@/lib/prisma";
 import { Status, Priority } from "@prisma/client";
-import type { PageProps } from "next";
+
+type TaskDetailPageProps = {
+  params: Promise<{ id: string }>;
+};
 
 // ── Helpers visuels ────────────────────────────────────────────────────────
 
@@ -55,7 +58,7 @@ function isOverdue(dueDate: Date | null, status: Status) {
 
 export default async function TaskDetailPage({
   params,
-}: PageProps<"/liste-taches/[id]">) {
+}: TaskDetailPageProps) {
   const { id } = await params;
   const taskId = parseInt(id, 10);
 
